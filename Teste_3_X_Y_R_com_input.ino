@@ -1,5 +1,3 @@
-//#include <pico/stdlib.h>
-
 // === Declaração de pinos ===
 
 const int motorA_EN = 1;  // Frente esquerda
@@ -30,8 +28,6 @@ void setup() {
   pinMode(motorD_EN, OUTPUT);
   pinMode(motorD_PWM, OUTPUT);
 
-  //set_sys_clock_khz(200000, true);
-
   Serial.begin(9600);
 }
 
@@ -60,7 +56,7 @@ void loop() {
 
 
 
-  // Absolute speeds
+  // Velocidades absolutas
   float ALF = abs(LF);
   float ARF = abs(RF);
   float ALB = abs(LB);
@@ -101,20 +97,6 @@ void loop() {
       Multi = (255 - N) / ARB;
  
   }
-
-  // Normalização: pega o maior valor absoluto
-//  float maxVal = 0;
-//  maxVal = max(max(ALF, ARF), max(ALB, ARB));
-//  
-//  if (maxVal > 1){
-//    LF = LF/maxVal;
-//    RF = RF/maxVal;
-//    LB = LB/maxVal;
-//    RB = RB/maxVal;
-//  }
-
-// Considerando o espaço +N ~ -N
-// Valores para os 4 motores PWM
 
   int LeftFront = 0; // LEFT FRONT
   int RightFront = 0; // RIGHT FRONT
@@ -160,19 +142,8 @@ void loop() {
     else if (RB = 0){
        RightBack = 0;
   }
-
-  Serial.println("Multi");
-  Serial.println(Multi);
-  Serial.println("ALF");
-  Serial.println(ALF);
-  Serial.println("ARF");
-  Serial.println(ARF);
-  Serial.println("ARB");
-  Serial.println(ARB);
-  Serial.println("ALB");
-  Serial.println(ALB);
  
-
+//Mostra as velocidades de cada roda
   Serial.println("Frente esquerda: ");
   Serial.println(LeftFront);
   Serial.println("Frente direita: ");
@@ -197,7 +168,7 @@ void loop() {
 
 
 void setMotor(int enPin, int pwmPin, int velocidade) {
- // velocidade = constrain(velocidade, -255, 255);
+  velocidade = constrain(velocidade, -255, 255);
 
   int veloAbs = abs(velocidade);
   if (velocidade > 0) {
