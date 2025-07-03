@@ -1,5 +1,3 @@
-//#include <pico/stdlib.h>
-//Serial Read errado
 // === Declaração de pinos ===
 
 const int motorA_EN = 1;  // Frente esquerda
@@ -14,7 +12,7 @@ const int motorC_PWM = 6;
 const int motorD_EN = 8;  // Trás direita
 const int motorD_PWM = 7;
 
-int N = 110; // valor minimo que o motor funciona
+int N = 110; // valor minimo que o motor começa a funcionar
 
 void setup() {
   pinMode(motorA_EN, OUTPUT);
@@ -26,25 +24,17 @@ void setup() {
   pinMode(motorD_EN, OUTPUT);
   pinMode(motorD_PWM, OUTPUT);
 
-  //set_sys_clock_khz(200000, true);
-
   Serial.begin(9600);
 }
 
 void loop() {
 
-// === Variáveis de movimento ===
+// Variáveis de movimento (escolher manualmente) 
 
   float Ly = 0;  // Frente/Trás
   float Lx = 0;  // Esquerda/Direita
   float Rt = 0;  // Rotação
   
-// === Possível utilização depois ===
-
- float Lx = Serial.read(); 
- float Ly = Serial.read(); 
- int Rt = Serial.read();
-
   float LF = Ly + Lx + Rt; // LEFT FRONT
   float RF = Ly - Lx - Rt; // RIGHT FRONT
   float LB = Ly - Lx + Rt; // LEFT BACK
@@ -93,10 +83,6 @@ void loop() {
   else{
      Multi = (255 - N);
   }
-  
-  Serial.println("Multiplicador: ");
-  Serial.println(Multi);
-  Serial.println("");
 
   // Normalização: pega o maior valor absoluto
   float maxVal = 0;
@@ -160,6 +146,7 @@ void loop() {
        RightBack = 0;
   }
 
+  //Expressa as velocidades de cada roda
   Serial.println("Frente esquerda: ");
   Serial.println(LeftFront);
   Serial.println("Frente direita: ");
@@ -181,7 +168,6 @@ void loop() {
 }
 
 // === Função de controle PWM com direção ===
-
 
 void setMotor(int enPin, int pwmPin, int velocidade) {
   velocidade = constrain(velocidade, -255, 255);
