@@ -46,14 +46,8 @@ void setup() {
 // === Loop ===
 void loop() {
   float lux = lightMeter.readLightLevel();
-  Serial.print("Luminosidade: ");
-  Serial.print(lux);
-  Serial.println(" lux");
 
   int velocidade = calcularVelocidadePorLux(lux);
-
-  Serial.print("Velocidade aplicada: ");
-  Serial.println(velocidade);
 
 // === Função para definir velocidade conforme lux ===
 int calcularVelocidadePorLux(float lux) {
