@@ -142,19 +142,6 @@ void loop() {
     else if (RB = 0){
        RightBack = 0;
   }
- 
-//Mostra as velocidades de cada roda
-  Serial.println("Frente esquerda: ");
-  Serial.println(LeftFront);
-  Serial.println("Frente direita: ");
-  Serial.println(RightFront);
-  Serial.println("Trás esquerda: ");
-  Serial.println(LeftBack);
-  Serial.println("Trás direita: ");
-  Serial.println(RightBack);
-
-  Serial.println(" ");
-
   
   // Envia sinais aos motores
   setMotor(motorA_EN, motorA_PWM, LeftFront);
