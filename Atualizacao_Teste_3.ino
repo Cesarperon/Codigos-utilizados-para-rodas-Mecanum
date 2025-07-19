@@ -14,7 +14,7 @@ const int motorD_PWM = 7;
 
 int N = 110; // valor minimo que o motor funciona
 
-float Ly = 0;  // Frente/Trás
+float Ly = 1;  // Frente/Trás
 float Lx = 0;  // Esquerda/Direita
 float Rt = 0;  // Rotação
 
@@ -96,92 +96,30 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
   }
 }
 
-void move_robot( float Ly, float Lx, float Rt ) {
+void move_robot(float Ly, float Lx, float Rt) {
+  float LF = Ly + Lx + Rt;
+  float RF = Ly - Lx - Rt;
+  float LB = Ly - Lx + Rt;
+  float RB = Ly + Lx - Rt;
 
-  float LF = Ly + Lx + Rt; // LEFT FRONT
-  float RF = Ly - Lx - Rt; // RIGHT FRONT
-  float LB = Ly - Lx + Rt; // LEFT BACK
-  float RB = Ly + Lx - Rt; // RIGHT BACK
-
-  // Absolute speeds
   float ALF = abs(LF);
   float ARF = abs(RF);
   float ALB = abs(LB);
   float ARB = abs(RB);
 
+  float Multi = 0;
+  float maior = max(max(ALF, ARF), max(ALB, ARB));
+  Multi = (maior <= 1) ? (255 - N) : (255 - N) / maior;
 
-  // Speed upscaling to 255 (absolute max)
+  LeftFront  = (LF > 0) ? (int)(LF * Multi + N) : (LF < 0) ? (int)(LF * Multi - N) : 0;
+  RightFront = (RF > 0) ? (int)(RF * Multi + N) : (RF < 0) ? (int)(RF * Multi - N) : 0;
+  LeftBack   = (LB > 0) ? (int)(LB * Multi + N) : (LB < 0) ? (int)(LB * Multi - N) : 0;
+  RightBack  = (RB > 0) ? (int)(RB * Multi + N) : (RB < 0) ? (int)(RB * Multi - N) : 0;
 
-  float Multi = 0;  // Declare the Multi variable
-
-  // Variaveis se houver sinal > 0
-
-  if (ALF >= ARF && ALF >= ALB && ALF >= ARB) {
-    if (ALF <= 1)
-      Multi = (255 - N);
-    else
-      Multi = (255 - N) / ALF;
-
-  }
-  else if (ARF >= ALF && ARF >= ALB && ARF >= ARB) {
-    if (ARF <= 1)
-      Multi = (255 - N) ;
-    else
-      Multi = (255 - N) / ARF;
-
-  }
-  else if (ALB >= ALF && ALB >= ARF && ALB >= ARB) {
-    if (ALB <= 1)
-      Multi = (255 - N) ;
-    else
-      Multi = (255 - N) / ALB;
-
-  }
-  else if (ARB >= ALF && ARB >= ARF && ARB >= ALB) {
-    if (ARB <= 1)
-      Multi = (255 - N) ;
-    else
-      Multi = (255 - N) / ARB;
-
-  }
-
-  // LeftFront
-  if (LF > 0) {
-    LeftFront = (int)((LF * Multi) + N);  // LEFT FRONT
-  } else if (LF < 0) {
-    LeftFront = (int)((LF * Multi) - N);
-  }
-  else {
-    LeftFront = 0;
-  }
-
-  // RightFront
-  if (RF > 0) {
-    RightFront = (int)((RF * Multi) + N);  // RIGHT FRONT
-  } else if (RF < 0) {
-    RightFront = (int)((RF * Multi) - N);
-  }
-  else if (RF = 0) {
-    RightFront = 0;
-  }
-
-  // LeftBack
-  if (LB > 0) {
-    LeftBack = (int)((LB * Multi) + N);  // LEFT BACK
-  } else if (LB < 0) {
-    LeftBack = (int)((LB * Multi) - N);
-  }
-  else if (LB = 0) {
-    LeftBack = 0;
-  }
-
-  // RightBack
-  if (RB > 0) {
-    RightBack = (int)((RB * Multi) + N);  // RIGHT BACK
-  } else if (RB < 0) {
-    RightBack = (int)((RB * Multi) - N);
-  }
-  else if (RB = 0) {
-    RightBack = 0;
-  }
+  Serial.println("PWM calculado:");
+  Serial.print("Frente esquerda: "); Serial.println(LeftFront);
+  Serial.print("Frente direita: "); Serial.println(RightFront);
+  Serial.print("Trás esquerda: "); Serial.println(LeftBack);
+  Serial.print("Trás direita: "); Serial.println(RightBack);
+  Serial.println(" ");
 }
