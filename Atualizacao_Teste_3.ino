@@ -54,16 +54,6 @@ void loop() {
     Serial.println(Rt);
   }
 
-  Serial.println("Frente esquerda: ");
-  Serial.println(LeftFront);
-  Serial.println("Frente direita: ");
-  Serial.println(RightFront);
-  Serial.println("Trás esquerda: ");
-  Serial.println(LeftBack);
-  Serial.println("Trás direita: ");
-  Serial.println(RightBack);
-
-  Serial.println(" ");
 
   //Normaliza os parâmetros
   move_robot(Ly, Lx, Rt);
@@ -78,7 +68,6 @@ void loop() {
 }
 
 // === Função de controle PWM com direção ===
-
 
 void setMotor(int enPin, int pwmPin, int velocidade) {
   
@@ -116,10 +105,4 @@ void move_robot(float Ly, float Lx, float Rt) {
   LeftBack   = (LB > 0) ? (int)(LB * Multi + N) : (LB < 0) ? (int)(LB * Multi - N) : 0;
   RightBack  = (RB > 0) ? (int)(RB * Multi + N) : (RB < 0) ? (int)(RB * Multi - N) : 0;
 
-  Serial.println("PWM calculado:");
-  Serial.print("Frente esquerda: "); Serial.println(LeftFront);
-  Serial.print("Frente direita: "); Serial.println(RightFront);
-  Serial.print("Trás esquerda: "); Serial.println(LeftBack);
-  Serial.print("Trás direita: "); Serial.println(RightBack);
-  Serial.println(" ");
 }
