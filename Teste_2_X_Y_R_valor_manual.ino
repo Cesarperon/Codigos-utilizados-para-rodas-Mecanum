@@ -87,10 +87,7 @@ void loop() {
   // Normalização: pega o maior valor absoluto
   float maxVal = 0;
   maxVal = max(max(ALF, ARF), max(ALB, ARB));
-  Serial.println("Máximo valor: ");
-  Serial.println(maxVal);
-  Serial.println("");
-  
+
   if (maxVal > 1){
     LF = LF/maxVal;
     RF = RF/maxVal;
@@ -172,10 +169,6 @@ void loop() {
 void setMotor(int enPin, int pwmPin, int velocidade) {
   velocidade = constrain(velocidade, -255, 255);
 
-//  Serial.println("velocidade: ");
-//  Serial.println(velocidade);
-//  Serial.println("");
-  
   int veloAbs = abs(velocidade);
   if (velocidade > 0) {
       analogWrite(enPin, 0);              // Sentido horário
