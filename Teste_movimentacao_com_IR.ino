@@ -47,9 +47,6 @@ void setup() {
 void loop() {
   int valorSensor = digitalRead(sensorPin);
 
-  Serial.print("Sensor: ");
-  Serial.println(valorSensor);
-
   // Se detectar linha (valor ALTO no KeyesIR), anda para trás
   if (valorSensor == HIGH) {
     Serial.println("Sem linha detectada!");
@@ -98,12 +95,6 @@ void move_robot(float Ly, float Lx, float Rt) {
   LeftBack   = (LB > 0) ? (int)(LB * Multi + N) : (LB < 0) ? (int)(LB * Multi - N) : 0;
   RightBack  = (RB > 0) ? (int)(RB * Multi + N) : (RB < 0) ? (int)(RB * Multi - N) : 0;
 
-  Serial.println("PWM calculado:");
-  Serial.print("Frente esquerda: "); Serial.println(LeftFront);
-  Serial.print("Frente direita: "); Serial.println(RightFront);
-  Serial.print("Trás esquerda: "); Serial.println(LeftBack);
-  Serial.print("Trás direita: "); Serial.println(RightBack);
-  Serial.println(" ");
 }
 
 //------------------------------------------------
