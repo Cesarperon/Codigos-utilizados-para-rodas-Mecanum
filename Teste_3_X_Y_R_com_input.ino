@@ -109,7 +109,7 @@ void loop() {
   } else if (LF<0){
        LeftFront = (int)((LF * Multi) - N); 
   }
-    else{
+    else {
        LeftFront = 0;
     }
     
@@ -119,7 +119,7 @@ void loop() {
   } else if (RF<0){
        RightFront = (int)((RF * Multi) - N); 
   }
-    else if (RF = 0){
+    else {
        RightFront = 0;
   }
 
@@ -129,7 +129,7 @@ void loop() {
   } else if (LB<0){
        LeftBack = (int)((LB * Multi) - N); 
   }
-    else if (LB = 0){
+    else {
        LeftBack = 0;
   }
   
@@ -139,7 +139,7 @@ void loop() {
   } else if (RB<0){
        RightBack = (int)((RB * Multi) - N); 
   }
-    else if (RB = 0){
+    else {
        RightBack = 0;
   }
   
