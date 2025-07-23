@@ -47,7 +47,7 @@ void setup() {
 void loop() {
   int valorSensor = digitalRead(sensorPin);
 
-  // Se detectar linha (valor ALTO no KeyesIR), anda para trás
+  // Se não detectar linha (valor HIGH no KeyesIR), o robê anda
   if (valorSensor == HIGH) {
     Serial.println("Sem linha detectada!");
     Ly = 1;
