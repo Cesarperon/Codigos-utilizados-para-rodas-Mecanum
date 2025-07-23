@@ -39,33 +39,23 @@ void setup() {
   Wire.setSDA(SDA_15);
   Wire.setSCL(SCL_15);
   Wire.begin();
-
-  if (lightMeter.begin()) {
-    Serial.println("Sensor BH1750 iniciado com sucesso!");
-  } else {
-    Serial.println("Erro ao iniciar o sensor BH1750.");
-    while (1);
-  }
+  lightMeter.begin(); 
+  
 }
 
 void loop() {
-  velocidadeporlux();
+  velocidade = velocidadeporlux();
 
   setMotor(motorA_EN, motorA_PWM, velocidade);
   setMotor(motorB_EN, motorB_PWM, velocidade);
   setMotor(motorC_EN, motorC_PWM, velocidade);
   setMotor(motorD_EN, motorD_PWM, velocidade);
 
-  Serial.print("Lux: ");
-  Serial.print(lightMeter.readLightLevel());
-  Serial.print("  | Velocidade PWM: ");
-  Serial.println(velocidade);
-
   delay(500);
 }
 
 // === Velocidade proporcional à luz ===
-void velocidadeporlux() {
+int velocidadeporlux() {
   float lux = lightMeter.readLightLevel();
 
   // Limita para o máximo de 255 lux
@@ -73,6 +63,8 @@ void velocidadeporlux() {
 
   // Converte diretamente para o intervalo PWM 0–255
   velocidade = constrain((lux / 255.0) * (255 - velocidadeMinima) + velocidadeMinima, 0, 255);
+
+  return velocidade;
 }
 
 // === Função para controlar motores ===
