@@ -48,16 +48,8 @@ void loop() {
 
   }
 
-
   //Normaliza os parâmetros
   move_robot(Ly, Lx, Rt);
-
-
-  // Envia sinais aos motores
-  setMotor(motorA_EN, motorA_PWM, LeftFront);
-  setMotor(motorB_EN, motorB_PWM, RightFront);
-  setMotor(motorC_EN, motorC_PWM, LeftBack);
-  setMotor(motorD_EN, motorD_PWM, RightBack);
 
 }
 
@@ -98,5 +90,11 @@ void move_robot(float Ly, float Lx, float Rt) {
   RightFront = (RF > 0) ? (int)(RF * Multi + N) : (RF < 0) ? (int)(RF * Multi - N) : 0;
   LeftBack   = (LB > 0) ? (int)(LB * Multi + N) : (LB < 0) ? (int)(LB * Multi - N) : 0;
   RightBack  = (RB > 0) ? (int)(RB * Multi + N) : (RB < 0) ? (int)(RB * Multi - N) : 0;
+
+    // Envia sinais aos motores
+  setMotor(motorA_EN, motorA_PWM, LeftFront);
+  setMotor(motorB_EN, motorB_PWM, RightFront);
+  setMotor(motorC_EN, motorC_PWM, LeftBack);
+  setMotor(motorD_EN, motorD_PWM, RightBack);
 
 }
