@@ -41,17 +41,11 @@ void loop() {
 
   // === Variáveis de movimento ===
   if (Serial.available() > 0) {
+    
     Ly = Serial.parseFloat();
-    Serial.print("Ly: ");
-    Serial.println(Ly);
-
     Lx = Serial.parseFloat();
-    Serial.print("Lx: ");
-    Serial.println(Lx);
-
     Rt = Serial.parseFloat();
-    Serial.print("Rt: ");
-    Serial.println(Rt);
+
   }
 
 
