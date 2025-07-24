@@ -89,7 +89,8 @@ void setMotor(int enPin, int pwmPin, float velocidade) {
   } else if (velocidade < 0) {
     analogWrite(enPin, pwm);     // Sentido anti-horário
     analogWrite(pwmPin, 0);
-  } else {
+  } else
+  {
     analogWrite(enPin, 0);       // Parado
     analogWrite(pwmPin, 0);
   }
