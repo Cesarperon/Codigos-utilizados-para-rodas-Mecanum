@@ -14,6 +14,8 @@ const int motorD_PWM = 7;
 
 const int sensorPin = 17; // Pino do sensor infravermelho
 
+int velocidadeAtual = 0;  // Armazena o último valor de velocidade
+
 void setup() {
   Serial.begin(9600);
 
@@ -34,34 +36,31 @@ void setup() {
 void loop() {
   int valorSensor = digitalRead(sensorPin);
 
-  // Se não detectar linha (valor HIGH no KeyesIR), o robô acelera
+  // Sem linha detectada → acelera até 255 e mantém
   if (valorSensor == HIGH) {
-    Serial.println("Sem linha detectada!");
-    for (int x = 75; x <= 255; x++) {
-      setMotor(motorA_EN, motorA_PWM, x);
-      setMotor(motorB_EN, motorB_PWM, x);
-      setMotor(motorC_EN, motorC_PWM, x);
-      setMotor(motorD_EN, motorD_PWM, x);
-      delay(20); 
+    if (velocidadeAtual < 255) {
+      for (int x = velocidadeAtual; x <= 255; x++) {
+        move_robot(x);
+        delay(10);
+      }
+      velocidadeAtual = 255;
+    } else {
+      // Já está na velocidade máxima
+      move_robot(255);
+      Serial.println("Velocidade máxima mantida.");
     }
-  }
-  // Se linha detectada, desacelera
+  } 
+  // Linha detectada → freia imediatamente
   else {
-    Serial.println("Linha detectada!");
-    for (int x = 255; x >= 75; x--) {
-      setMotor(motorA_EN, motorA_PWM, x);
-      setMotor(motorB_EN, motorB_PWM, x);
-      setMotor(motorC_EN, motorC_PWM, x);
-      setMotor(motorD_EN, motorD_PWM, x);
-      delay(20); 
-    }
+    move_robot(0);
+    velocidadeAtual = 0;
   }
 
   delay(100);
 }
 
+//------------------------------------------
 // Função para aplicar PWM e direção
-
 void setMotor(int enPin, int pwmPin, int velocidade) {
   int veloAbs = abs(velocidade);
   if (velocidade > 0) {
@@ -74,4 +73,13 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
     analogWrite(enPin, 0);          // Parado
     analogWrite(pwmPin, 0);
   }
+}
+
+//------------------------------------------
+// Aplica mesma velocidade para todos os motores
+void move_robot(int velocidade) {
+  setMotor(motorA_EN, motorA_PWM, velocidade);
+  setMotor(motorB_EN, motorB_PWM, velocidade);
+  setMotor(motorC_EN, motorC_PWM, velocidade);
+  setMotor(motorD_EN, motorD_PWM, velocidade);
 }
