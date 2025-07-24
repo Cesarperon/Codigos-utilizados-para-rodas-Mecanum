@@ -23,12 +23,11 @@ BH1750 lightMeter;
 
 // === Configurações ===
 int velocidadeMinima = 70;    // PWM mínimo
-int velocidadeMaxima = 255;   // PWM máximo
 
 // === Direções de movimento ===
-float X = 1.0;  // -1 (esquerda) a +1 (direita)
-float Y = 0.0;  // -1 (trás) a +1 (frente)
-float R = 0.0;  // -1 (girar esquerda) a +1 (girar direita)
+float Ly = 1;  // Frente/Trás
+float Lx = 0;  // Esquerda/Direita
+float Rt = 0;  // Rotação
 
 void setup() {
   Serial.begin(9600);
@@ -46,33 +45,27 @@ void setup() {
   Wire.setSCL(SCL_15);
   Wire.begin();
 
-  if (lightMeter.begin()) {
-    Serial.println("BH1750 iniciado com sucesso!");
-  } else {
-    Serial.println("Erro ao iniciar BH1750!");
-    while (1); // trava o código
-  }
 }
 
 void loop() {
   float lux = lightMeter.readLightLevel();
 
   // Converte lux para PWM proporcional, com mínimo
-  int pwmBase = luxToPWM(lux);
+  int pwmBase = luxparaPWM(lux);
 
   // Calcula velocidades individuais com base em X, Y e R
-  float vA = Y + X + R;
-  float vB = Y - X - R;
-  float vC = Y - X + R;
-  float vD = Y + X - R;
+  float LF = Ly + Lx + Rt;
+  float RF = Ly - Lx - Rt;
+  float LB = Ly - Lx + Rt;
+  float RB = Ly + Lx - Rt;
 
   // Normaliza para manter dentro de -1 a 1
-  float maxVal = max(max(abs(vA), abs(vB)), max(abs(vC), abs(vD)));
+  float maxVal = max(max(abs(LF), abs(RF)), max(abs(LB), abs(RB)));
   if (maxVal > 1.0) {
-    vA /= maxVal;
-    vB /= maxVal;
-    vC /= maxVal;
-    vD /= maxVal;
+    LF /= maxVal;
+    RF /= maxVal;
+    LB /= maxVal;
+    RB /= maxVal;
   }
 
   // Aplica PWM proporcional à luz
@@ -80,19 +73,11 @@ void loop() {
   setMotor(motorB_EN, motorB_PWM, vB * pwmBase);
   setMotor(motorC_EN, motorC_PWM, vC * pwmBase);
   setMotor(motorD_EN, motorD_PWM, vD * pwmBase);
-
-  // Monitor serial
-  Serial.print("Lux: ");
-  Serial.print(lux);
-  Serial.print(" | PWM base: ");
-  Serial.println(pwmBase);
-
-  delay(200);
 }
 
-int luxToPWM(float lux) {
-  lux = constrain(lux, 0, 255);  // Trunca valor
-  int pwm = (lux / 255.0) * (velocidadeMaxima - velocidadeMinima) + velocidadeMinima;
+int velocidadeporlux(float lux) {
+  lux = constrain(lux, 0, 255); 
+  int pwm = (lux / 255.0) * (255 - velocidadeMinima) + velocidadeMinima;
   return constrain(pwm, 0, 255);
 }
 
