@@ -31,9 +31,9 @@ void loop() {
 
 // Variáveis de movimento 
 
-  float Ly = 0;  // Frente/Trás
-  float Lx = 0;  // Esquerda/Direita
-  float Rt = 0;  // Rotação
+  float Ly = 1;  // Frente/Trás
+  float Lx = 1;  // Esquerda/Direita
+  float Rt = 1;  // Rotação
   
   float LF = Ly + Lx + Rt; // LEFT FRONT
   float RF = Ly - Lx - Rt; // RIGHT FRONT
@@ -179,4 +179,5 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
       analogWrite(enPin, 0); 
   }
 }
+
 
