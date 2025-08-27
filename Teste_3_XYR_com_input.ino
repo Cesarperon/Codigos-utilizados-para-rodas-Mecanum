@@ -62,12 +62,11 @@ void loop() {
   float ALB = abs(LB);
   float ARB = abs(RB);
 
-  // Speed upscaling to 255 (absolute max)
-  // float Vel = N + X*(255 - N);
-  
-  float Multi = 0;  // Declare the Multi variable
+  // Limitando a velocidade a 255 (maxima)
 
-  // Variaveis se houver snal > 0
+  float Multi = 0;  // Variavel de multiplicador
+
+  // Variaveis se houver sinal > 0
 
   if (ALF >= ARF && ALF >= ALB && ALF >= ARB) {
     if (ALF <= 1)
