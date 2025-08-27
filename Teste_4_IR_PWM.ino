@@ -47,7 +47,6 @@ void loop() {
     } else {
       // Já está na velocidade máxima
       move_robot(255);
-      Serial.println("Velocidade máxima mantida.");
     }
   } 
   // Linha detectada → freia imediatamente
@@ -83,3 +82,4 @@ void move_robot(int velocidade) {
   setMotor(motorC_EN, motorC_PWM, velocidade);
   setMotor(motorD_EN, motorD_PWM, velocidade);
 }
+
