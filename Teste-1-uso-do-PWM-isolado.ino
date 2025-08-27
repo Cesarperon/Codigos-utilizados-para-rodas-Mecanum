@@ -2,14 +2,14 @@
 const int motorA_EN = 1;  // frente esquerda
 const int motorA_PWM = 2;
 
-const int motorB_EN = 3;  // frente direita
-const int motorB_PWM = 4;
+const int motorB_EN = 4;  // frente direita
+const int motorB_PWM = 3;
 
 const int motorC_EN = 5;  // trás esquerda
 const int motorC_PWM = 6;
 
-const int motorD_EN = 7;  // trás direita
-const int motorD_PWM = 8;
+const int motorD_EN = 8;  // trás direita
+const int motorD_PWM = 7;
 
 // === Velocidade base ===
 //int x = 0;
@@ -79,3 +79,4 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
     analogWrite(pwmPin, 0);                 // Parado
   }
 }
+
