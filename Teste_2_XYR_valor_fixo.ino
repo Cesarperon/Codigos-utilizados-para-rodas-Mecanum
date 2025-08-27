@@ -142,16 +142,16 @@ void loop() {
   }
 
   //Expressa as velocidades de cada roda
-  Serial.println("Frente esquerda: ");
-  Serial.println(LeftFront);
-  Serial.println("Frente direita: ");
-  Serial.println(RightFront);
-  Serial.println("Trás esquerda: ");
-  Serial.println(LeftBack);
-  Serial.println("Trás direita: ");
-  Serial.println(RightBack);
+  //Serial.println("Frente esquerda: ");
+  //Serial.println(LeftFront);
+  //Serial.println("Frente direita: ");
+  //Serial.println(RightFront);
+  //Serial.println("Trás esquerda: ");
+  //Serial.println(LeftBack);
+  //Serial.println("Trás direita: ");
+  //Serial.println(RightBack);
 
-  Serial.println(" ");
+  //Serial.println(" ");
 
   
   // Envia sinais aos motores
@@ -179,3 +179,4 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
       analogWrite(enPin, 0); 
   }
 }
+
