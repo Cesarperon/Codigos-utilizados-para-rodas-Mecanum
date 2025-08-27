@@ -29,7 +29,7 @@ void setup() {
 
 void loop() {
 
-// Variáveis de movimento (escolher manualmente) 
+// Variáveis de movimento 
 
   float Ly = 0;  // Frente/Trás
   float Lx = 0;  // Esquerda/Direita
@@ -45,13 +45,10 @@ void loop() {
   float ARF = abs(RF);
   float ALB = abs(LB);
   float ARB = abs(RB);
-
-  // Speed upscaling to 255 (absolute max)
-  // float Vel = N + X*(255 - N);
   
-  float Multi = 0;  // Declare the Multi variable
+  float Multi = 0;  // Multiplicador final
 
-  // Variaveis se houver snal > 0
+  // Variaveis se houver sinal > 0
 
   if (ALF > ARF && ALF > ALB && ALF > ARB) {
     if (ALF < 1)
@@ -85,6 +82,7 @@ void loop() {
   }
 
   // Normalização: pega o maior valor absoluto
+  
   float maxVal = 0;
   maxVal = max(max(ALF, ARF), max(ALB, ARB));
 
@@ -171,13 +169,13 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
 
   int veloAbs = abs(velocidade);
   if (velocidade > 0) {
-      analogWrite(enPin, 0);              // Sentido horário
+      analogWrite(enPin, 0);                // Sentido horário
       analogWrite(pwmPin, veloAbs);
   } else if (velocidade < 0) {
-      analogWrite(enPin, veloAbs);
-      analogWrite(pwmPin, 0);               // Sentido anti-horário
+      analogWrite(enPin, veloAbs);          // Sentido anti-horário
+      analogWrite(pwmPin, 0);             
   } else {
-      analogWrite(pwmPin, 0);                 // Parado
+      analogWrite(pwmPin, 0);               // Parado
       analogWrite(enPin, 0); 
   }
 }
