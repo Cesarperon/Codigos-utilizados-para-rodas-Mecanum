@@ -41,13 +41,18 @@ void loop() {
 
   // === Variáveis de movimento ===
   if (Serial.available() > 0) {
-    
     Ly = Serial.parseFloat();
+    Serial.print("Ly: ");
+    Serial.println(Ly);
+
     Lx = Serial.parseFloat();
+    Serial.print("Lx: ");
+    Serial.println(Lx);
+
     Rt = Serial.parseFloat();
-
+    Serial.print("Rt: ");
+    Serial.println(Rt);
   }
-
   //Normaliza os parâmetros
   move_robot(Ly, Lx, Rt);
 
@@ -98,3 +103,4 @@ void move_robot(float Ly, float Lx, float Rt) {
   setMotor(motorD_EN, motorD_PWM, RightBack);
 
 }
+
