@@ -1,0 +1,148 @@
+// === Declaração de pinos === 
+const int LF1 = 1;  // pinos da roda da frente do lado esquerdo 
+const int LF2 = 2;   
+
+const int RF1 = 3;  // pinos da roda da frente do lado direito
+const int RF2 = 4;  
+
+const int LB1 = 5;  // pinos da roda de trás do lado esquerdo
+const int LB2 = 6;  
+
+const int RB1 = 7;  // pinos da roda de trás do lado direito
+const int RB2 = 8;  
+
+
+void setup() {
+  pinMode(LF1, OUTPUT);
+  pinMode(LF2, OUTPUT);
+  pinMode(RF1, OUTPUT);
+  pinMode(RF2, OUTPUT);
+  pinMode(LB1, OUTPUT);
+  pinMode(LB2, OUTPUT);
+  pinMode(RB1, OUTPUT);
+  pinMode(RB2, OUTPUT);
+}
+
+void loop() {  
+
+  // MOVIMENTAÇÃO PARA A FRENTE
+  digitalWrite(RF1, HIGH);  
+  digitalWrite(RF2, LOW);
+
+  digitalWrite(LF1, LOW);   
+  digitalWrite(LF2, HIGH);
+
+  digitalWrite(RB1, HIGH);   
+  digitalWrite(RB2, LOW);
+  
+  digitalWrite(LB1, LOW);   
+  digitalWrite(LB2, HIGH);
+
+  delay(1000);
+
+  // MOVIMENTAÇÃO PARA A ESQUERDA
+  digitalWrite(RF1, HIGH);  
+  digitalWrite(RF2, LOW);
+
+  digitalWrite(LF1, HIGH);   
+  digitalWrite(LF2, LOW);
+
+  digitalWrite(RB1, LOW);   
+  digitalWrite(RB2, HIGH);
+
+  digitalWrite(LB1, LOW);   
+  digitalWrite(LB2, HIGH);
+
+  delay(3000);
+
+  // MOVIMENTAÇÃO PARA ATRÁS
+  digitalWrite(RF1, LOW);  
+  digitalWrite(RF2, HIGH);
+
+  digitalWrite(LF1, HIGH);   
+  digitalWrite(LF2, LOW);
+
+  digitalWrite(RB1, LOW);   
+  digitalWrite(RB2, HIGH);
+
+  digitalWrite(LB1, HIGH);   
+  digitalWrite(LB2, LOW);
+
+  delay(1000);
+
+  // MOVIMENTAÇÃO PARA A DIAGONAL DIREITA
+  digitalWrite(RF1, LOW);  
+  digitalWrite(RF2, HIGH);
+
+  digitalWrite(LF1, LOW);   
+  digitalWrite(LF2, LOW);
+
+  digitalWrite(RB1, LOW);   
+  digitalWrite(RB2, LOW);
+
+  digitalWrite(LB1, HIGH);   
+  digitalWrite(LB2, LOW);
+
+  delay(2000);
+
+  // MOVIMENTAÇÃO PARA A DIAGONAL ESQUERDA
+  digitalWrite(RF1, LOW);  
+  digitalWrite(RF2, LOW);
+
+  digitalWrite(LF1, HIGH);   
+  digitalWrite(LF2, LOW);
+
+  digitalWrite(RB1, LOW);   
+  digitalWrite(RB2, HIGH);
+
+  digitalWrite(LB1, LOW);   
+  digitalWrite(LB2, LOW);
+
+  delay(2000);
+
+  // MOVIMENTAÇÃO PARA A DIREITA
+  digitalWrite(RF1, LOW);  
+  digitalWrite(RF2, HIGH);
+
+  digitalWrite(LF1, LOW);   
+  digitalWrite(LF2, HIGH);
+
+  digitalWrite(RB1, HIGH);   
+  digitalWrite(RB2, LOW);
+
+  digitalWrite(LB1, HIGH);   
+  digitalWrite(LB2, LOW);
+
+  delay(3000);
+
+  // MOVIMENTAÇÃO EM ROTAÇÃO
+  digitalWrite(RF1, HIGH);  
+  digitalWrite(RF2, LOW);
+
+  digitalWrite(LF1, LOW);   
+  digitalWrite(LF2, HIGH);
+
+  digitalWrite(RB1, LOW);   
+  digitalWrite(RB2, HIGH);
+
+  digitalWrite(LB1, HIGH);   
+  digitalWrite(LB2, LOW);
+
+  delay(3000);
+
+  // MOVIMENTAÇÃO EM ROTAÇÃO
+  digitalWrite(RF1, LOW);  
+  digitalWrite(RF2, HIGH);
+
+  digitalWrite(LF1, HIGH);   
+  digitalWrite(LF2, LOW);
+
+  digitalWrite(RB1, HIGH);   
+  digitalWrite(RB2, LOW);
+
+  digitalWrite(LB1, LOW);   
+  digitalWrite(LB2, HIGH);
+
+  delay(3000);
+
+}
