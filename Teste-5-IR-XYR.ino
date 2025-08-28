@@ -1,16 +1,16 @@
 // === Declaração de pinos ===
 
-const int motorA_EN = 1;  // Frente esquerda
-const int motorA_PWM = 2;
+const int motorA_EN = 2;  // Frente esquerda
+const int motorA_PWM = 1;
 
-const int motorB_EN = 4;  // Frente direita
-const int motorB_PWM = 3;
+const int motorB_EN = 3;  // Frente direita
+const int motorB_PWM = 4;
 
-const int motorC_EN = 5;  // Trás esquerda
-const int motorC_PWM = 6;
+const int motorC_EN = 6;  // Trás esquerda
+const int motorC_PWM = 5;
 
-const int motorD_EN = 8;  // Trás direita
-const int motorD_PWM = 7;
+const int motorD_EN = 7;  // Trás direita
+const int motorD_PWM = 8;
 
 const int sensorPin = 17; // Pino do sensor infravermelho
 
@@ -56,8 +56,9 @@ void loop() {
   } else {
     Serial.println("Linha detectada!");
     Ly = 0;
-    Lx = 0;
+    Lx = 1;
     Rt = 0;
+   
   }
 
   // Calcula os valores PWM com base em Ly, Lx, Rt
