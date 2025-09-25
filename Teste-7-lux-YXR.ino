@@ -18,7 +18,7 @@ const unsigned int SCL_15 = 21;
 
 BH1750 lightMeter;
 
-int velocidadeMinima = 70;    
+int velocidadeMinima = 50;    
 
 // === Direções de movimento ===
 float Ly = 1;  // Frente/Trás
@@ -96,3 +96,4 @@ void setMotor(int enPin, int pwmPin, float velocidade) {
     analogWrite(pwmPin, 0);
   }
 }
+
