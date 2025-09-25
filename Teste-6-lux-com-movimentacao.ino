@@ -24,7 +24,7 @@ int LeftFront = 0;
 int RightFront = 0;
 int LeftBack = 0;
 int RightBack = 0;
-int velocidade = 0;  // agora é global
+int velocidade = 0;  
 
 // === Setup ===
 void setup() {
@@ -42,41 +42,49 @@ void setup() {
   Wire.setSDA(SDA_15);
   Wire.setSCL(SCL_15);
   Wire.begin();
+
+  if (!lightMeter.begin()) {
+    Serial.println("Erro ao iniciar BH1750!");
+    while (1);
+  }
 }
 
 // === Loop ===
 void loop() {
-  velocidadeporlux();  // Atualiza a variável global "velocidade"
+  velocidadePorLux();  
 
-  // Movimento para frente com a velocidade ajustada
   LeftFront = velocidade;
   RightFront = velocidade;
   LeftBack = velocidade;
   RightBack = velocidade;
 
-  delay(500);
-}
-
-// === Função que ajusta a velocidade com base na luz ===
-void velocidadeporlux() {
-  float lux = lightMeter.readLightLevel();
-  Serial.print("Lux: ");
-  Serial.println(lux);
-
-  if (lux > 150) {
-    velocidade = 255;
-  } else if (lux > 100) {
-    velocidade = 200;
-  } else if (lux > 50) {
-    velocidade = 150;
-  } else {
-    velocidade = 100;
-  }
-
+  // Atualiza os motores
   setMotor(motorA_EN, motorA_PWM, LeftFront);
   setMotor(motorB_EN, motorB_PWM, RightFront);
   setMotor(motorC_EN, motorC_PWM, LeftBack);
   setMotor(motorD_EN, motorD_PWM, RightBack);
+
+  delay(500);
+}
+
+// === Função que ajusta a velocidade com base na luz ===
+void velocidadePorLux() {
+  float lux = lightMeter.readLightLevel();
+  Serial.print("Lux: ");
+  Serial.println(lux);
+
+  if (lux > 300) {
+    velocidade = 255;
+  } else if (lux > 200) {
+    velocidade = 200;
+  } else if (lux > 100) {
+    velocidade = 150;
+  } else if (lux > 50) {
+    velocidade = 100;
+    else {
+    velocidade = 50
+    }
+  }
 }
 
 // === Função para controlar motores com direção ===
