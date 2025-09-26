@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <BH1750.h>
 
+// === Pinos dos motores ===
 const int motorA_EN = 1;  // Frente esquerda
 const int motorA_PWM = 2;
 
@@ -13,17 +14,20 @@ const int motorC_PWM = 6;
 const int motorD_EN = 8;  // Trás direita
 const int motorD_PWM = 7;
 
+// === Pinos I2C para o sensor ===
 const unsigned int SDA_15 = 20;
 const unsigned int SCL_15 = 21;
 
+// === Sensor BH1750 ===
 BH1750 lightMeter;
 
-int velocidadeMinima = 50;    
+// === Configurações ===
+int velocidadeMinima = 50;    // PWM mínimo
 
 // === Direções de movimento ===
-float Ly = 1;  // Frente/Trás
+float Ly = 0;  // Frente/Trás
 float Lx = 0;  // Esquerda/Direita
-float Rt = 0;  // Rotação
+float Rt = 1;  // Rotação
 
 void setup() {
   Serial.begin(9600);
@@ -50,7 +54,8 @@ void setup() {
 
 void loop() {
   float lux = lightMeter.readLightLevel();
-  
+
+  // Converte lux para PWM proporcional, com mínimo
   int pwmBase = velocidadePorLux(lux);
 
   // Calcula velocidades individuais com base em X, Y e R
@@ -74,6 +79,11 @@ void loop() {
   setMotor(motorC_EN, motorC_PWM, LB * pwmBase);
   setMotor(motorD_EN, motorD_PWM, RB * pwmBase);
 
+  Serial.print("Lux: ");
+  Serial.print(lux);
+  Serial.print(" | PWM base: ");
+  Serial.println(pwmBase);
+
   delay(100);
 }
 
@@ -96,4 +106,3 @@ void setMotor(int enPin, int pwmPin, float velocidade) {
     analogWrite(pwmPin, 0);
   }
 }
-
