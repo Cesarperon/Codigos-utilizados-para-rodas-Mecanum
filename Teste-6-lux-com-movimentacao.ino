@@ -82,7 +82,7 @@ void velocidadePorLux() {
   } else if (lux > 50) {
     velocidade = 100;
     else {
-    velocidade = 50
+  }  velocidade = 50
     }
   }
 }
@@ -101,3 +101,4 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
     analogWrite(enPin, 0);
   }
 }
+
