@@ -26,6 +26,10 @@ int LeftBack = 0;
 int RightBack = 0;
 int velocidade = 0;  
 
+// === Prototipação das funções (resolve o erro) ===
+void setMotor(int enPin, int pwmPin, int velocidade);
+void velocidadePorLux();
+
 // === Setup ===
 void setup() {
   Serial.begin(9600);
@@ -81,15 +85,15 @@ void velocidadePorLux() {
     velocidade = 150;
   } else if (lux > 50) {
     velocidade = 100;
-    else {
-  }  velocidade = 50
-    }
+  } else {
+    velocidade = 50;
   }
 }
 
 // === Função para controlar motores com direção ===
 void setMotor(int enPin, int pwmPin, int velocidade) {
   int veloAbs = abs(velocidade);
+
   if (velocidade > 0) {
     analogWrite(enPin, 0);         // Sentido horário
     analogWrite(pwmPin, veloAbs);
@@ -101,4 +105,3 @@ void setMotor(int enPin, int pwmPin, int velocidade) {
     analogWrite(enPin, 0);
   }
 }
-
